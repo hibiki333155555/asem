@@ -15,12 +15,13 @@ S:      .word 0
 
 main:    or   $8, $0, $0       # i = 0
          lw   $9, N            
-         lw   $10, A
+         la   $10, A
          or   $11, $0, $0      # s = 0
 
 loop:    beq  $8, $9, loopend  # i == n なら loopend へ
          addi $8, $8, 1        # i++
-         add  $11, $11, 0($10)    # s += i
+         lw   $12, 0($10)
+         add  $11, $11, $12    # s += i
          addi $10, $10, 4
          j    loop
 

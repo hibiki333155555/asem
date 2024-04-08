@@ -15,13 +15,14 @@ B:      .space 40   # 配列B の格納先　大きさは40バイト
         .text
 main:    or $8, $0, $0
          lw $9, N
-         lw $10, A
-         lw $11, B 
+         la $10, A
+         la $11, B 
 
 loop:    beq  $8, $9, exit  
          addi $8, $8, 1
          sw   $11, 0($10)
          addi $10, $10, 4
+         addi $11, $11, 4
 
 exit: j exit
 
