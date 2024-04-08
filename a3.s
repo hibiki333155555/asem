@@ -18,11 +18,15 @@ main:    or $8, $0, $0
          la $10, A
          la $11, B 
 
-loop:    beq  $8, $9, exit  
+loop:    beq  $8, $9, loopend  
          addi $8, $8, 1
-         sw   $11, 0($10)
+         lw   $12, 0($10) 
+         sw   $12, 0($11)
          addi $10, $10, 4
          addi $11, $11, 4
+         j loop
+
+loopend:
 
 exit: j exit
 
