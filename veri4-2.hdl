@@ -1,0 +1,34 @@
+initial
+begin
+CK = 1;
+CLR = 1;
+ReadReg1[4:0] = 5’b00000;
+ReadReg2[4:0] = 5’b00000;
+WriteEN =0;
+#100
+CLR = 0;
+#100
+WriteEN = 1;
+WriteReg[4:0] = 5’b00001;
+WriteData[31:0] = 32’b0000_0001_0011_0000_0000_0001_0000_0110;
+//s1300106
+#100
+CLR = 0;
+#100
+WriteEN = 1;
+WriteReg[4:0] = 5’b00010;
+WriteData[31:0] = 32’b0000_0000_0000_0000_0010_0000_0010_0100;
+//2024
+#200
+ReadReg1[4:0] = 5’b00001;
+ReadReg2[4:0] = 5’b00010;
+#500
+$finish;
+end
+always
+begin
+CK = 1;
+#50
+CK = 0;
+#50;
+end
