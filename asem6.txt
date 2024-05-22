@@ -1,0 +1,97 @@
+//Verilog HDL for "archi", "Ex6" "behaviooral"
+module Ex6 ( RegDst, Jump, Branch, MemRead, MemtoReg, ALU, MemWrite, ALUSrc,
+RegWrite, Opcode );
+output reg MemRead;
+output reg MemtoReg;
+output reg Jump;
+output reg RegWrite;
+output reg MemWrite;
+output reg RegDst;
+output reg [1:0] ALU;
+input [5:0] Opcode;
+output reg ALUSrc;
+output reg Branch;
+always @(Opcode) begin
+if( Opcode == 0 ) begin // Opcode : R-type(ADD SUB SLT AND OR)
+Jump <= 1'b0;
+RegDst <= 1'b1;
+Branch <= 1'b0;
+MemRead <= 1'b0;
+MemtoReg <= 1'b0;
+MemWrite <= 1'b0;
+ALUSrc <= 1'b0;
+RegWrite <= 1'b1;
+ALUOp <= 2'b10;
+end else
+if( Opcode == 35 ) begin // Opcode : LW
+Jump <= 1'b0;
+RegDst <= 1'b0;
+Branch <= 1'b0;
+MemRead <= 1'b1;
+MemtoReg <= 1'b1;
+MemWrite <= 1'b0;
+ALUSrc <= 1'b1;
+RegWrite <= 1'b1;
+ALUOp <= 2'b00;
+end else
+if( Opcode == 43 ) begin // Opcode : SW
+//... SW 命令のときの出力値記述
+Jump <= 1'b0;
+RegDst <= 1'b0;
+Branch <= 1'b0;
+MemRead <= 1'b0;
+MemtoReg <= 1'b0;
+MemWrite <= 1'b1;
+ALUSrc <= 1'b1;
+RegWrite <= 1'b0;
+ALUOp <= 2'b00;
+end else
+if( Opcode == 4 ) begin // Opcode : BEQ
+//... BEQ 命令のときの出力値記述
+Jump <= 1'b0;
+RegDst <= 1'b0;
+Branch <= 1'b1;
+MemRead <= 1'b0;
+MemtoReg <= 1'b0;
+MemWrite <= 1'b0;
+ALUSrc <= 1'b0;
+RegWrite <= 1'b0;
+ALUOp <= 2'b01;
+end else
+if( Opcode == 2 ) begin // Opcode : J
+//... J 命令のときの出力値記述
+Jump <= 1'b1;
+RegDst <= 1'bx;
+Branch <= 1'b0;
+MemRead <= 1'b0;
+MemtoReg <= 1'bx;
+MemWrite <= 1'b0;
+ALUSrc <= 1'bx;
+RegWrite <= 1'b0;
+ALUOp <= 2'bxx;
+end else
+if( Opcode == 8 || Opcode == 12 || Opcode == 13 || Opcode == 10 ) begin //
+Opcode : immediate(ADDI ANDI ORI SLTI)
+//... イミディエイト命令のときの出力値記述
+Jump <= 1'b0;
+RegDst <= 1'b0;
+Branch <= 1'b0;
+MemRead <= 1'b0;
+MemtoReg <= 1'b0;
+MemWrite <= 1'b0;
+ALUSrc <= 1'b1;
+RegWrite <= 1'b1;
+ALUOp <= 2'b11;
+end else begin // Opcode : Error
+Jump <= 1'b0;
+RegDst <= 1'bx;
+Branch <= 1'b0;
+MemRead <= 1'bx;
+MemtoReg <= 1'bx;
+MemWrite <= 1'b0;
+ALUSrc <= 1'bx;
+RegWrite <= 1'b0;
+ALUOp <= 2'bxx;
+end
+end
+endmodule
